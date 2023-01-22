@@ -411,7 +411,8 @@ class PlayState extends MusicBeatState
 			SONG = Song.loadFromJson('tutorial');
 		if (SONG.song == 'lobster') {
 			//scorpion vid
-		} 
+			MusicBeatState.switchState(new LobsterState());
+		}
 
 		Conductor.mapBPMChanges(SONG);
 		Conductor.changeBPM(SONG.bpm);
@@ -557,8 +558,7 @@ class PlayState extends MusicBeatState
 				S.scale.y *= 1.5;
 				SB.scrollFactor.set(0.5,1);
 
-				boyfriend.y += 30;
-				dad.y += 30;
+				
 				
 			case 'stage': //Week 1
 				var bg:BGSprite = new BGSprite('stageback', -600, -200, 0.9, 0.9);
@@ -900,6 +900,8 @@ class PlayState extends MusicBeatState
 		if (curStage == 'limo')
 			add(limo);
 
+		
+
 		add(dadGroup);
 		add(boyfriendGroup);
 
@@ -1016,6 +1018,11 @@ class PlayState extends MusicBeatState
 		startCharacterPos(boyfriend);
 		boyfriendGroup.add(boyfriend);
 		startCharacterLua(boyfriend.curCharacter);
+
+		if (curStage == 'desert') {
+			boyfriend.y += 30;
+			dad.y += 30;
+		}
 
 		var camPos:FlxPoint = new FlxPoint(girlfriendCameraOffset[0], girlfriendCameraOffset[1]);
 		if(gf != null)

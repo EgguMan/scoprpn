@@ -58,6 +58,11 @@ class LoadingState extends MusicBeatState
 		loadBar.screenCenter(X);
 		loadBar.antialiasing = ClientPrefs.globalAntialiasing;
 		add(loadBar);
+
+		if (PlayState.SONG.song == 'lobster') {
+			//scorpion vid
+			MusicBeatState.switchState(new LobsterState());
+		}
 		
 		initSongsManifest().onComplete
 		(

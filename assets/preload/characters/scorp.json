@@ -1,77 +1,77 @@
 {
 	"animations": [
 		{
+			"loop": false,
 			"offsets": [
 				-5,
 				0
 			],
-			"loop": false,
-			"fps": 24,
 			"anim": "idle",
-			"indices": [],
-			"name": "scorp_idle"
+			"fps": 24,
+			"name": "scorp_idle",
+			"indices": []
 		},
 		{
+			"loop": false,
 			"offsets": [
 				75,
 				84
 			],
-			"loop": false,
-			"fps": 24,
 			"anim": "singLEFT",
-			"indices": [],
-			"name": "scorp_left"
+			"fps": 24,
+			"name": "scorp_left",
+			"indices": []
 		},
 		{
+			"loop": false,
 			"offsets": [
 				-11,
 				63
 			],
-			"loop": false,
-			"fps": 24,
 			"anim": "singDOWN",
-			"indices": [],
-			"name": "scorp_down"
+			"fps": 24,
+			"name": "scorp_down",
+			"indices": []
 		},
 		{
+			"loop": false,
 			"offsets": [
 				-39,
 				195
 			],
-			"loop": false,
-			"fps": 24,
 			"anim": "singUP",
-			"indices": [],
-			"name": "scorp_up"
+			"fps": 24,
+			"name": "scorp_up",
+			"indices": []
 		},
 		{
+			"loop": false,
 			"offsets": [
 				-37,
 				113
 			],
-			"loop": false,
-			"fps": 24,
 			"anim": "singRIGHT",
-			"indices": [],
-			"name": "scorp_right"
+			"fps": 24,
+			"name": "scorp_right",
+			"indices": []
 		},
 		{
+			"loop": false,
 			"offsets": [
 				105,
 				12
 			],
-			"loop": false,
-			"fps": 24,
 			"anim": "attack",
-			"indices": [],
-			"name": "scorp_attack"
+			"fps": 24,
+			"name": "scorp_attack",
+			"indices": []
 		}
 	],
 	"no_antialiasing": false,
 	"image": "characters/scorp_assets",
 	"position": [
 		0,
-		490
+		540
 	],
 	"healthicon": "scorp",
 	"flip_x": false,
