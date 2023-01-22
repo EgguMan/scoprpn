@@ -409,6 +409,9 @@ class PlayState extends MusicBeatState
 
 		if (SONG == null)
 			SONG = Song.loadFromJson('tutorial');
+		if (SONG.song == 'lobster') {
+			//scorpion vid
+		} 
 
 		Conductor.mapBPMChanges(SONG);
 		Conductor.changeBPM(SONG.bpm);
@@ -509,6 +512,54 @@ class PlayState extends MusicBeatState
 
 		switch (curStage)
 		{
+			case 'desert':
+				var SB:BGSprite = new BGSprite('sand_back');
+
+				var SO:BGSprite = new BGSprite('sand_ocean');
+
+				var BOW:BGSprite = new BGSprite('sand_BOW');
+
+				var S:BGSprite = new BGSprite('sand');
+
+				var SM:BGSprite = new BGSprite('sand_mount');
+
+				SB.screenCenter();
+				SO.screenCenter();
+				BOW.screenCenter();
+				S.screenCenter();
+				SM.screenCenter();
+
+				//SB.x -= 400;
+				//SO.x -= 800;
+				//BOW.x -= 800;
+				//S.x -= 500;
+				//SM.x -= 500;
+		
+				S.y += 700;
+				SM.y += 700;
+				SB.y += 300;
+		
+				SO.y += 400;
+				BOW.y += 500;
+
+				add(SB);
+
+				add(SO);
+
+				add(BOW);
+
+				add(S);
+
+				add(SM);
+
+				S.origin.y = 0;
+				S.origin.x = S.width/2;
+				S.scale.y *= 1.5;
+				SB.scrollFactor.set(0.5,1);
+
+				boyfriend.y += 30;
+				dad.y += 30;
+				
 			case 'stage': //Week 1
 				var bg:BGSprite = new BGSprite('stageback', -600, -200, 0.9, 0.9);
 				add(bg);

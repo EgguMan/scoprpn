@@ -35,10 +35,7 @@ class MainMenuState extends MusicBeatState
 	var optionShit:Array<String> = [
 		'story_mode',
 		'freeplay',
-		#if MODS_ALLOWED 'mods', #end
-		#if ACHIEVEMENTS_ALLOWED 'awards', #end
 		'credits',
-		#if !switch 'donate', #end
 		'options'
 	];
 
@@ -46,6 +43,8 @@ class MainMenuState extends MusicBeatState
 	var camFollow:FlxObject;
 	var camFollowPos:FlxObject;
 	var debugKeys:Array<FlxKey>;
+	var bf:Character;
+	var scor:Character;
 
 	override function create()
 	{
@@ -75,7 +74,7 @@ class MainMenuState extends MusicBeatState
 
 		var yScroll:Float = Math.max(0.25 - (0.05 * (optionShit.length - 4)), 0.1);
 		var bg:FlxSprite = new FlxSprite(-80).loadGraphic(Paths.image('menuBG'));
-		bg.scrollFactor.set(0, yScroll);
+		bg.scrollFactor.set(1.2, yScroll);
 		bg.setGraphicSize(Std.int(bg.width * 1.175));
 		bg.updateHitbox();
 		bg.screenCenter();
@@ -88,7 +87,7 @@ class MainMenuState extends MusicBeatState
 		add(camFollowPos);
 
 		magenta = new FlxSprite(-80).loadGraphic(Paths.image('menuDesat'));
-		magenta.scrollFactor.set(0, yScroll);
+		magenta.scrollFactor.set(1.2, yScroll);
 		magenta.setGraphicSize(Std.int(magenta.width * 1.175));
 		magenta.updateHitbox();
 		magenta.screenCenter();
@@ -96,7 +95,58 @@ class MainMenuState extends MusicBeatState
 		magenta.antialiasing = ClientPrefs.globalAntialiasing;
 		magenta.color = 0xFFfd719b;
 		add(magenta);
+
+		var SB:FlxSprite = new FlxSprite().loadGraphic(Paths.image('sand_back'));
+
+		var SO:FlxSprite = new FlxSprite().loadGraphic(Paths.image('sand_ocean'));
+
+		var BOW:FlxSprite = new FlxSprite().loadGraphic(Paths.image('sand_BOW'));
+
+		var S:FlxSprite = new FlxSprite().loadGraphic(Paths.image('sand'));
+
+		var SM:FlxSprite = new FlxSprite().loadGraphic(Paths.image('sand_mount'));
+
+		SB.x -= 400;
+		SO.x -= 800;
+		BOW.x -= 800;
+		S.x -= 500;
+		SM.x -= 500;
+
+		S.y += 300;
+		SM.y += 250;
+		SB.y += 100;
+
+		SO.y += 150;
+		BOW.y += 175;
+	
+
+		SB.scrollFactor.set();
+		SO.scrollFactor.set();
+		BOW.scrollFactor.set();
+		S.scrollFactor.set();
+		SM.scrollFactor.set();
+
+		add(SB);
+		add(SO);
+		add(BOW);
+		add(S);
+
+		bf = new Character(800, 120, 'bf', true);
+		bf.scrollFactor.set();
+		bf.centerOrigin();
+
+		add(bf);
+
+		scor = new Character(0, 220, 'scorp', false);
+		scor.scrollFactor.set();
+		scor.centerOrigin();
+
+		add(scor);
+
+		add(SM);
 		
+		
+
 		// magenta.scrollFactor.set();
 
 		menuItems = new FlxTypedGroup<FlxSprite>();
@@ -118,7 +168,6 @@ class MainMenuState extends MusicBeatState
 			menuItem.animation.addByPrefix('selected', optionShit[i] + " white", 24);
 			menuItem.animation.play('idle');
 			menuItem.ID = i;
-			menuItem.screenCenter(X);
 			menuItems.add(menuItem);
 			var scr:Float = (optionShit.length - 4) * 0.135;
 			if(optionShit.length < 6) scr = 0;
@@ -126,6 +175,26 @@ class MainMenuState extends MusicBeatState
 			menuItem.antialiasing = ClientPrefs.globalAntialiasing;
 			//menuItem.setGraphicSize(Std.int(menuItem.width * 0.58));
 			menuItem.updateHitbox();
+
+			menuItem.y = 620;
+			/*switch (i) {
+				case 0:
+					menuItem = -200;
+				case 1: 
+					menuItem = 400;
+				case 2:
+					menuItem = 1000;
+			}*/
+			menuItem.x = -550;
+
+			menuItem.scale.set(0.45,0.45);
+
+			menuItem.x += menuItem.width + (i*300);
+			//menuItem.y -= 200 + ( i * 40);
+
+			if (menuItem.ID == 0) {
+				menuItem.x -= 200;
+			}
 		}
 
 		FlxG.camera.follow(camFollowPos, null, 1);
@@ -133,11 +202,9 @@ class MainMenuState extends MusicBeatState
 		var versionShit:FlxText = new FlxText(12, FlxG.height - 44, 0, "Psych Engine v" + psychEngineVersion, 12);
 		versionShit.scrollFactor.set();
 		versionShit.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		add(versionShit);
 		var versionShit:FlxText = new FlxText(12, FlxG.height - 24, 0, "Friday Night Funkin' v" + Application.current.meta.get('version'), 12);
 		versionShit.scrollFactor.set();
 		versionShit.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		add(versionShit);
 
 		// NG.core.calls.event.logEvent('swag').send();
 
@@ -172,6 +239,8 @@ class MainMenuState extends MusicBeatState
 
 	override function update(elapsed:Float)
 	{
+		if (FlxG.sound.music != null)
+			Conductor.songPosition = FlxG.sound.music.time;
 		if (FlxG.sound.music.volume < 0.8)
 		{
 			FlxG.sound.music.volume += 0.5 * FlxG.elapsed;
@@ -183,13 +252,13 @@ class MainMenuState extends MusicBeatState
 
 		if (!selectedSomethin)
 		{
-			if (controls.UI_UP_P)
+			if (controls.UI_LEFT_P)
 			{
 				FlxG.sound.play(Paths.sound('scrollMenu'));
 				changeItem(-1);
 			}
 
-			if (controls.UI_DOWN_P)
+			if (controls.UI_RIGHT_P)
 			{
 				FlxG.sound.play(Paths.sound('scrollMenu'));
 				changeItem(1);
@@ -265,11 +334,13 @@ class MainMenuState extends MusicBeatState
 		}
 
 		super.update(elapsed);
+	}
 
-		menuItems.forEach(function(spr:FlxSprite)
-		{
-			spr.screenCenter(X);
-		});
+	override function beatHit() {
+		super.beatHit();
+
+		bf.playAnim('idle',true);
+		scor.playAnim('idle',true);
 	}
 
 	function changeItem(huh:Int = 0)
@@ -288,14 +359,35 @@ class MainMenuState extends MusicBeatState
 
 			if (spr.ID == curSelected)
 			{
+				var offsetArray:Array<Int> = getMenuOffsets(spr.ID);
+
+				spr.offset.x = offsetArray[0];
+				spr.offset.y = offsetArray[1];
 				spr.animation.play('selected');
 				var add:Float = 0;
 				if(menuItems.length > 4) {
 					add = menuItems.length * 8;
 				}
-				camFollow.setPosition(spr.getGraphicMidpoint().x, spr.getGraphicMidpoint().y - add);
-				spr.centerOffsets();
+				camFollow.setPosition(spr.getGraphicMidpoint().y , spr.getGraphicMidpoint().y /*- add*/);
+				//spr.centerOffsets();
+			} else {
+				spr.offset.set(0,0);
 			}
 		});
+	}
+
+	function getMenuOffsets(itemNum:Float) {
+		switch (itemNum) {
+			case 0:
+				return [30,5];
+			case 1:
+				return [30,5];
+			case 2:
+				return [12,5];
+			case 3:
+				return [20,5];
+		}
+
+		return [0,0];
 	}
 }
