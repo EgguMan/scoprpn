@@ -96,9 +96,13 @@ class MainMenuState extends MusicBeatState
 		magenta.color = 0xFFfd719b;
 		add(magenta);
 
+		var SK:FlxSprite = new FlxSprite().loadGraphic(Paths.image('sand_sky'));
+
 		var SB:FlxSprite = new FlxSprite().loadGraphic(Paths.image('sand_back'));
 
 		var SO:FlxSprite = new FlxSprite().loadGraphic(Paths.image('sand_ocean'));
+
+		var SW:FlxSprite = new FlxSprite().loadGraphic(Paths.image('sand_waves'));
 
 		var BOW:FlxSprite = new FlxSprite().loadGraphic(Paths.image('sand_BOW'));
 
@@ -109,6 +113,7 @@ class MainMenuState extends MusicBeatState
 		SB.x -= 400;
 		SO.x -= 800;
 		BOW.x -= 800;
+		SW.x -= 800;
 		S.x -= 500;
 		SM.x -= 500;
 
@@ -118,6 +123,7 @@ class MainMenuState extends MusicBeatState
 
 		SO.y += 150;
 		BOW.y += 175;
+		SW.y += 175;
 	
 
 		SB.scrollFactor.set();
@@ -125,10 +131,15 @@ class MainMenuState extends MusicBeatState
 		BOW.scrollFactor.set();
 		S.scrollFactor.set();
 		SM.scrollFactor.set();
+		SW.scrollFactor.set();
 
+		SK.scrollFactor.set();
+
+		add(SK);
 		add(SB);
 		add(SO);
 		add(BOW);
+		add(SW);
 		add(S);
 
 		bf = new Character(800, 120, 'bf', true);

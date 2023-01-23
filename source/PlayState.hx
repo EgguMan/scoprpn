@@ -1,5 +1,6 @@
 package;
 
+import haxe.CallStack.StackItem;
 import flixel.graphics.FlxGraphic;
 #if desktop
 import Discord.DiscordClient;
@@ -514,21 +515,28 @@ class PlayState extends MusicBeatState
 		switch (curStage)
 		{
 			case 'desert':
+				var SK:BGSprite = new BGSprite('sand_sky');
+
 				var SB:BGSprite = new BGSprite('sand_back');
 
 				var SO:BGSprite = new BGSprite('sand_ocean');
 
 				var BOW:BGSprite = new BGSprite('sand_BOW');
 
+				var SW:BGSprite = new BGSprite('sand_waves');
+
 				var S:BGSprite = new BGSprite('sand');
 
 				var SM:BGSprite = new BGSprite('sand_mount');
+
+				SK.screenCenter();
 
 				SB.screenCenter();
 				SO.screenCenter();
 				BOW.screenCenter();
 				S.screenCenter();
 				SM.screenCenter();
+				SW.screenCenter();
 
 				//SB.x -= 400;
 				//SO.x -= 800;
@@ -542,10 +550,16 @@ class PlayState extends MusicBeatState
 		
 				SO.y += 400;
 				BOW.y += 500;
+				SK.y -= 200;
+				SW.y += 300;
+
+				add(SK);
 
 				add(SB);
 
 				add(SO);
+
+				add(SW);
 
 				add(BOW);
 
@@ -553,6 +567,7 @@ class PlayState extends MusicBeatState
 
 				add(SM);
 
+				SK.scrollFactor.set();
 				S.origin.y = 0;
 				S.origin.x = S.width/2;
 				S.scale.y *= 1.5;
