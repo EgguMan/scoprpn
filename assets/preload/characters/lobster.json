@@ -1,0 +1,89 @@
+{
+	"animations": [
+		{
+			"offsets": [
+				-5,
+				0
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "idle",
+			"indices": [],
+			"name": "scorp_idle"
+		},
+		{
+			"offsets": [
+				75,
+				84
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "singLEFT",
+			"indices": [],
+			"name": "scorp_left"
+		},
+		{
+			"offsets": [
+				-11,
+				63
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "singDOWN",
+			"indices": [],
+			"name": "scorp_down"
+		},
+		{
+			"offsets": [
+				-39,
+				195
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "singUP",
+			"indices": [],
+			"name": "scorp_up"
+		},
+		{
+			"offsets": [
+				-37,
+				113
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "singRIGHT",
+			"indices": [],
+			"name": "scorp_right"
+		},
+		{
+			"offsets": [
+				105,
+				12
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "attack",
+			"indices": [],
+			"name": "scorp_attack"
+		}
+	],
+	"no_antialiasing": false,
+	"image": "characters/scorp_assets",
+	"position": [
+		0,
+		540
+	],
+	"healthicon": "lobster",
+	"flip_x": false,
+	"healthbar_colors": [
+		49,
+		176,
+		209
+	],
+	"camera_position": [
+		-200,
+		0
+	],
+	"sing_duration": 4,
+	"scale": 1
+}

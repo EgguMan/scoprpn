@@ -187,7 +187,7 @@ class MainMenuState extends MusicBeatState
 			//menuItem.setGraphicSize(Std.int(menuItem.width * 0.58));
 			menuItem.updateHitbox();
 
-			menuItem.y = 620;
+			menuItem.y = 600;
 			/*switch (i) {
 				case 0:
 					menuItem = -200;

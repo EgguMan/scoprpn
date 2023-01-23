@@ -5,6 +5,7 @@ function onEvent(name,value1,value2)
     if (name == 'attack') then
         playAnim('dad','attack',true);
         runTimer('attackTimer',0.5);
+        setProperty('FlxG.camera.zoom',setProperty('camGame.zoom' + 0.3));
     end
 end
 
@@ -32,6 +33,7 @@ function onTimerCompleted(tag, loops, loopsLeft)
     end
     if (tag == 'slash') then
         setProperty('slash.visible',false);
+        setProperty('FlxG.camera.zoom' - 0.3)
     end
 end
 

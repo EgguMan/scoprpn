@@ -82,6 +82,7 @@ class PlayState extends MusicBeatState
 {
 	public static var STRUM_X = 42;
 	public static var STRUM_X_MIDDLESCROLL = -278;
+	var black:FlxSprite;
 
 	public static var ratingStuff:Array<Dynamic> = [
 		['You Suck!', 0.2], //From 0% to 19%
@@ -517,6 +518,10 @@ class PlayState extends MusicBeatState
 			case 'desert':
 				var SK:BGSprite = new BGSprite('sand_sky');
 
+				var SS:BGSprite = new BGSprite('sand_sun');
+
+				var SC:BGSprite = new BGSprite('sand_cloud');
+
 				var SB:BGSprite = new BGSprite('sand_back');
 
 				var SO:BGSprite = new BGSprite('sand_ocean');
@@ -530,13 +535,19 @@ class PlayState extends MusicBeatState
 				var SM:BGSprite = new BGSprite('sand_mount');
 
 				SK.screenCenter();
-
+				SC.screenCenter();
+				SS.screenCenter();
 				SB.screenCenter();
 				SO.screenCenter();
 				BOW.screenCenter();
 				S.screenCenter();
 				SM.screenCenter();
 				SW.screenCenter();
+
+				black = new FlxSprite().makeGraphic(2000,2000,FlxColor.BLACK);
+				black.alpha = 0;
+				black.screenCenter();
+				black.scrollFactor.set();
 
 				//SB.x -= 400;
 				//SO.x -= 800;
@@ -547,13 +558,18 @@ class PlayState extends MusicBeatState
 				S.y += 700;
 				SM.y += 700;
 				SB.y += 300;
-		
+				SC.y -= 200;
 				SO.y += 400;
 				BOW.y += 500;
 				SK.y -= 200;
-				SW.y += 300;
+				SW.y += 310;
+				SS.x -= 100;
 
 				add(SK);
+
+				add(SS);
+
+				add(SC);
 
 				add(SB);
 
@@ -567,12 +583,16 @@ class PlayState extends MusicBeatState
 
 				add(SM);
 
+				add(black);
+
 				SK.scrollFactor.set();
 				S.origin.y = 0;
 				S.origin.x = S.width/2;
 				S.scale.y *= 1.5;
 				SB.scrollFactor.set(0.5,1);
+				SC.scrollFactor.set(0.8,0.7);
 
+				SS.y += 187.5;
 				
 				
 			case 'stage': //Week 1
@@ -1039,7 +1059,7 @@ class PlayState extends MusicBeatState
 			dad.y += 30;
 		}
 
-		var camPos:FlxPoint = new FlxPoint(girlfriendCameraOffset[0], girlfriendCameraOffset[1]);
+		var camPos:FlxPoint = new FlxPoint(dad.getGraphicMidpoint().x, dad.getGraphicMidpoint().y);
 		if(gf != null)
 		{
 			camPos.x += gf.getGraphicMidpoint().x + gf.cameraPosition[0];
@@ -1707,9 +1727,9 @@ class PlayState extends MusicBeatState
 	function schoolIntro(?dialogueBox:DialogueBox):Void
 	{
 		inCutscene = true;
-		var black:FlxSprite = new FlxSprite(-100, -100).makeGraphic(FlxG.width * 2, FlxG.height * 2, FlxColor.BLACK);
-		black.scrollFactor.set();
-		add(black);
+		var black2:FlxSprite = new FlxSprite(-100, -100).makeGraphic(FlxG.width * 2, FlxG.height * 2, FlxColor.BLACK);
+		black2.scrollFactor.set();
+		add(black2);
 
 		var red:FlxSprite = new FlxSprite(-100, -100).makeGraphic(FlxG.width * 2, FlxG.height * 2, 0xFFff1b31);
 		red.scrollFactor.set();
@@ -1737,9 +1757,9 @@ class PlayState extends MusicBeatState
 
 		new FlxTimer().start(0.3, function(tmr:FlxTimer)
 		{
-			black.alpha -= 0.15;
+			black2.alpha -= 0.15;
 
-			if (black.alpha > 0)
+			if (black2.alpha > 0)
 			{
 				tmr.reset(0.3);
 			}
@@ -1786,7 +1806,7 @@ class PlayState extends MusicBeatState
 				else
 					startCountdown();
 
-				remove(black);
+				remove(black2);
 			}
 		});
 	}
@@ -3480,6 +3500,15 @@ class PlayState extends MusicBeatState
 						}});
 				}
 
+			case 'dark':
+				if (black.alpha > 0) {
+					FlxG.camera.zoom += 0.3;
+					FlxTween.tween(black, {alpha:0},1.5,{ease:FlxEase.quadOut});
+				} else {
+					FlxG.camera.zoom -= 0.3;
+					FlxTween.tween(black, {alpha:0.45},1.5,{ease:FlxEase.quadOut});
+				}
+
 			case 'Hey!':
 				var value:Int = 2;
 				switch(value1.toLowerCase().trim()) {
@@ -4911,8 +4940,8 @@ class PlayState extends MusicBeatState
 		}
 
 		if(ClientPrefs.camZooms) {
-			FlxG.camera.zoom += 0.015;
-			camHUD.zoom += 0.03;
+			FlxG.camera.zoom -= 0.03;
+			camHUD.zoom -= 0.03;
 
 			if(!camZooming) { //Just a way for preventing it to be permanently zoomed until Skid & Pump hits a note
 				FlxTween.tween(FlxG.camera, {zoom: defaultCamZoom}, 0.5);
